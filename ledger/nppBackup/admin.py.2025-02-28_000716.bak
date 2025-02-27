@@ -11,6 +11,5 @@ class RecipeIngredientInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [RecipeIngredientInline]
 
-
 admin.site.register(Ingredient)
 admin.site.register(RecipeIngredient)
