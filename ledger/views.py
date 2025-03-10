@@ -1,34 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404
 from .models import Recipe
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def recipe_list(request):
-    """ View to display the list of all recipes. """
     recipes = Recipe.objects.all()
     return render(request, "recipe_list.html", {"recipes": recipes})
 
-@login_required
+
 def recipe_detail(request, recipe_id):
-    """ View to display a recipe's details. Only accessible to logged-in users. """
     recipe = get_object_or_404(Recipe, id=recipe_id)
     return render(request, "recipe_detail.html", {"recipe": recipe})
 
-def custom_login(request):
-    """ Custom login view to authenticate users. """
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect("recipe_list")  
-    else:
-        form = AuthenticationForm()
-    return render(request, "login.html", {"form": form})
-
-def custom_logout(request):
-    """ Custom logout view to log users out and redirect to login page. """
-    logout(request)
-    return redirect("login")  
+class RecipeDetailView(LoginRequiredMixin, DetailView):
+    model = Recipe
+    template_name = "recipe_detail.html"
+    login_url = "/accounts/login/"  # Redirects to login if not authenticated
