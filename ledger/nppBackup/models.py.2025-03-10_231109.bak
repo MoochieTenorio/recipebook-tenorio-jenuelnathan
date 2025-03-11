@@ -1,0 +1,35 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Recipe(models.Model):
+    name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # New field
+    created_on = models.DateTimeField(auto_now_add=True)  # New field
+    updated_on = models.DateTimeField(auto_now=True)  # New field
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f"/recipes/{self.id}/"
+
+
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name="ingredients"
+    )
+    ingredient = models.ForeignKey(
+        Ingredient, on_delete=models.CASCADE, related_name="recipe"
+    )
+    quantity = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.ingredient.name} in {self.recipe.name}"

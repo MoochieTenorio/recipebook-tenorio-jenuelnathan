@@ -1,0 +1,41 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+from .models import Ingredient, Recipe, RecipeIngredient, Profile
+
+
+# Profile Inline (to link Profile with User in the admin panel)
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = "Profiles"
+
+
+# Extend UserAdmin to include Profile
+class UserAdmin(BaseUserAdmin):
+    inlines = [ProfileInline]
+
+
+# Register Profile with User
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+
+
+# RecipeIngredient Inline (for nested ingredient management)
+class RecipeIngredientInline(admin.TabularInline):
+    model = RecipeIngredient
+    extra = 1
+
+
+# Recipe Admin (to display author and ingredients inline)
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ("name", "author", "created_on", "updated_on")  # Show these columns in admin
+    list_filter = ("author", "created_on")  # Add filtering options
+    search_fields = ("name", "author__username")  # Allow searching by name and author
+    inlines = [RecipeIngredientInline]
+
+
+# Register Other Models
+admin.site.register(Ingredient)
+admin.site.register(RecipeIngredient)
