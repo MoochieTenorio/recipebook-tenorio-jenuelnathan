@@ -4,7 +4,7 @@ from .models import Recipe, RecipeImage
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ["name", "description"]  # ✅ Matches fixed `Recipe` model
+        fields = ["name", "description"]
 
 class RecipeImageForm(forms.ModelForm):
     class Meta:

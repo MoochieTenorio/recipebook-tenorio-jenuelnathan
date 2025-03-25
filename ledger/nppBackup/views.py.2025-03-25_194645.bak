@@ -13,8 +13,7 @@ def recipe_list(request):
 @login_required(login_url="/accounts/login/")
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    images = RecipeImage.objects.filter(recipe=recipe)  # ✅ Fetch related images
-    return render(request, "recipe_detail.html", {"recipe": recipe, "images": images})  # ✅ Pass images to template
+    return render(request, "recipe_detail.html", {"recipe": recipe}) 
 
 @login_required(login_url="/accounts/login/")
 def add_recipe(request):

@@ -19,11 +19,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from ledger import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipes/', include('ledger.urls')),  # ✅ This includes all URLs from ledger/urls.py
+    path('recipes/list/', views.recipe_list, name='recipe_list'),
+    path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

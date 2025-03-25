@@ -8,24 +8,10 @@
     <p><strong>Author:</strong> {{ recipe.author.username }}</p>
     <p><strong>Created On:</strong> {{ recipe.created_on }}</p>
     <p><strong>Updated On:</strong> {{ recipe.updated_on }}</p>
-
     <h4>Ingredients:</h4>
     <ul>
         {% for ingredient in recipe.ingredients.all %}
             <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
         {% endfor %}
     </ul>
-
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'add_recipe_image' pk=recipe.pk %}">Upload an Image</a></p>
-    {% endif %}
-
-    {% if images %}
-        <h3>Recipe Images:</h3>
-        {% for image in images %}
-            <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 300px;">
-        {% endfor %}
-    {% else %}
-        <p>No images uploaded yet.</p>
-    {% endif %}
 {% endblock %}

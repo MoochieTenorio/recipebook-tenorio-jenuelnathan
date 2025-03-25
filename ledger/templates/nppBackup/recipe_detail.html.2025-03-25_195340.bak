@@ -17,7 +17,7 @@
     </ul>
 
     {% if user.is_authenticated %}
-        <p><a href="{% url 'add_recipe_image' pk=recipe.pk %}">Upload an Image</a></p>
+        <a href="{% url 'add_recipe_image' pk=recipe.pk %}">Upload an Image</a>
     {% endif %}
 
     {% if images %}

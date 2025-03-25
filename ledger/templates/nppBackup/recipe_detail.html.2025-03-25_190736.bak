@@ -16,16 +16,15 @@
         {% endfor %}
     </ul>
 
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'add_recipe_image' pk=recipe.pk %}">Upload an Image</a></p>
-    {% endif %}
-
-    {% if images %}
-        <h3>Recipe Images:</h3>
-        {% for image in images %}
-            <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 300px;">
-        {% endfor %}
+    <h4>Images:</h4>
+    {% if recipe.images.all %}
+        <div>
+            {% for image in recipe.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 300px; height: auto; margin: 5px;">
+                <p>{{ image.description }}</p>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No images uploaded yet.</p>
+        <p>No images available for this recipe.</p>
     {% endif %}
 {% endblock %}

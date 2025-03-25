@@ -8,13 +8,12 @@ from django.views.generic.edit import CreateView
 
 def recipe_list(request):
     recipes = Recipe.objects.all()
-    return render(request, "recipe_list.html", {"recipes": recipes}) 
+    return render(request, "recipe_list.html", {"recipes": recipes})  # Updated template path
 
 @login_required(login_url="/accounts/login/")
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    images = RecipeImage.objects.filter(recipe=recipe)  # ✅ Fetch related images
-    return render(request, "recipe_detail.html", {"recipe": recipe, "images": images})  # ✅ Pass images to template
+    return render(request, "recipe_detail.html", {"recipe": recipe})  # Updated template path
 
 @login_required(login_url="/accounts/login/")
 def add_recipe(request):
@@ -27,7 +26,7 @@ def add_recipe(request):
             return redirect("recipe_detail", recipe_id=recipe.id)  
     else:
         form = RecipeForm()
-    return render(request, "recipe_form.html", {"form": form})  
+    return render(request, "recipe_form.html", {"form": form})  # Updated template path
 
 class AddRecipeImageView(LoginRequiredMixin, CreateView):
     model = RecipeImage

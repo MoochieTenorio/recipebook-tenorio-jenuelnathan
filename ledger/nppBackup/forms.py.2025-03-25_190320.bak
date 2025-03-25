@@ -1,0 +1,7 @@
+from django import forms
+from .models import RecipeImage  # Import the RecipeImage model
+
+class RecipeImageForm(forms.ModelForm):
+    class Meta:
+        model = RecipeImage
+        fields = ['image', 'description']
