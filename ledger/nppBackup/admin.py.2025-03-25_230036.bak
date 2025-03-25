@@ -13,17 +13,17 @@ class UserAdmin(BaseUserAdmin):
     inlines = [ProfileInline]
 
 
-class RecipeImageInline(admin.TabularInline):
+class RecipeImageInline(admin.TabularInline):  
     model = RecipeImage
-    extra = 1
+    extra = 1  
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [RecipeImageInline]
+    inlines = [RecipeImageInline]  
 
 
 # Register models in Django admin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(RecipeImage)
+admin.site.register(Recipe, RecipeAdmin)  
+admin.site.register(RecipeImage) 

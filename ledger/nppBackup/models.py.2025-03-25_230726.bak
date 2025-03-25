@@ -54,11 +54,7 @@ class Profile(models.Model):
 
 class RecipeImage(models.Model):
     """Model for storing images related to a Recipe"""
-    recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE, related_name="images"
-    )
-    image = models.ImageField(upload_to="recipe_images/")
-    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="recipe_images/")
     description = models.CharField(max_length=255)
 

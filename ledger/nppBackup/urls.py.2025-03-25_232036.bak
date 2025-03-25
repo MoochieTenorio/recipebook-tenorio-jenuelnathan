@@ -5,9 +5,5 @@ urlpatterns = [
     path("list/", recipe_list, name="recipe_list"),
     path("<int:recipe_id>/", recipe_detail, name="recipe_detail"),
     path("add/", add_recipe, name="add_recipe"),
-    path(
-        "<int:pk>/add_image/", 
-        AddRecipeImageView.as_view(), 
-        name="add_recipe_image"
-    ),
+    path("<int:pk>/add_image/", AddRecipeImageView.as_view(), name="add_recipe_image"),
 ]

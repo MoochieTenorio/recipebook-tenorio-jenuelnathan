@@ -25,5 +25,5 @@ class RecipeAdmin(admin.ModelAdmin):
 # Register models in Django admin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(RecipeImage)
+admin.site.register(Recipe, RecipeAdmin)  
+admin.site.register(RecipeImage) 
