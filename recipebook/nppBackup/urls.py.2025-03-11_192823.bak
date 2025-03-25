@@ -20,7 +20,9 @@ from ledger import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipes/list/', views.recipe_list, name='recipe_list'),
-    path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
+    path('recipes/list/', views.recipe_list, name='recipe_list'),  
+    path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),  
+    
+    # 🔹 Include Django authentication URLs
     path('accounts/', include('django.contrib.auth.urls')),
 ]
